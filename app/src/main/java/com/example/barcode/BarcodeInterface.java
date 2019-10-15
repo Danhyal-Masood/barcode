@@ -54,19 +54,7 @@ public class BarcodeInterface extends AppCompatActivity implements CvCameraPrevi
     }
     @Override
     public Mat onCameraFrame(Mat mat) {
-         org.opencv.core.Mat graymat=converter2.convert(converter1.convert(mat));
-         System.out.println(graymat);
-        org.opencv.imgproc.Imgproc.cvtColor(graymat,graymat, Imgproc.COLOR_RGBA2GRAY);
-        org.opencv.core.Mat gradx=new org.opencv.core.Mat(graymat.width(),graymat.height(), CvType.CV_32F);
-        org.opencv.core.Mat grady=new org.opencv.core.Mat(graymat.width(),graymat.height(), CvType.CV_32F);
-        org.opencv.core.Mat gradient = new org.opencv.core.Mat(graymat.width(),graymat.height(), CvType.CV_32F);
 
-        org.opencv.imgproc.Imgproc.Sobel(graymat,gradx,CvType.CV_32F,1,0,-1);
-        org.opencv.imgproc.Imgproc.Sobel(graymat,grady,CvType.CV_32F,0,1,-1);
-
-        org.opencv.core.Core.subtract(gradx,grady,gradient);
-        org.opencv.core.Core.convertScaleAbs(gradient,gradient);
-        Log.d("::DEBUG::",String.format("print? %s",graymat.dataAddr()));
-        return converter1.convert(converter2.convert(gradient));
+        return Detection(mat);
     }
 }
