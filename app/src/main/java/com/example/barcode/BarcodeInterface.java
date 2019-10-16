@@ -16,6 +16,8 @@ import com.journeyapps.barcodescanner.CameraPreview;
 import com.journeyapps.barcodescanner.DecoderResultPointCallback;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
+import net.dongliu.requests.Requests;
+
 import org.bytedeco.javacv.JavaCVCL;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.opencv.global.opencv_imgproc;
@@ -41,6 +43,24 @@ public class BarcodeInterface extends AppCompatActivity {
             resulttxt= result.getText();
             barcodeView.setStatusText(result.getText());
             Log.d(TAG,resulttxt);
+
+                Thread thread = new Thread(new Runnable() {
+                    String apiendpoint=String.format("https://world.openfoodfacts.org/api/v0/product/%s.json",resulttxt);
+
+                @Override
+                public void run() {
+                    try  {
+                        String response = Requests.post(apiendpoint).socksTimeout(10000).send().readToText();
+                        System.out.println(response);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+
+
+
 //            ImageView imageView = (ImageView) findViewById(R.id.cam);
 //            imageView.setImageBitmap(result.getBitmapWithResultPoints(Color.YELLOW));
         }
