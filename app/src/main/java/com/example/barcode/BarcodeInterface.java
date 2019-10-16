@@ -22,6 +22,8 @@ import org.bytedeco.javacv.JavaCVCL;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Mat;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.opencv.android.*;
 import org.opencv.core.CvType;
 import org.opencv.imgproc.Imgproc;
@@ -50,8 +52,16 @@ public class BarcodeInterface extends AppCompatActivity {
                 @Override
                 public void run() {
                     try  {
+                       JSONParser jsonParser=new JSONParser();
+
+                        System.out.println(apiendpoint);
                         String response = Requests.post(apiendpoint).socksTimeout(10000).send().readToText();
-                        System.out.println(response);
+                        Object obj=jsonParser.parse(response);
+                        JSONObject jobj= (JSONObject) obj;
+                        JSONObject product= (JSONObject) jobj.get("product");
+                        System.out.println(jobj.keySet());
+                        System.out.println(product.get("product_name_en"));
+                        System.out.println(product.get("nutriments"));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
