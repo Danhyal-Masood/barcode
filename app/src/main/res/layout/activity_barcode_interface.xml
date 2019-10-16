@@ -5,12 +5,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".BarcodeInterface">
-        <com.example.barcode.CvCameraPreview
+        <com.journeyapps.barcodescanner.DecoratedBarcodeView
                 tools:ignore="MissingConstraints"
                  android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/cam"
                 >
 
-        </com.example.barcode.CvCameraPreview>
+        </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
