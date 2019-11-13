@@ -19,6 +19,9 @@ android {
         }
     }
 }
+configurations {
+    compile.exclude group: "junit", module: "junit"
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

@@ -155,4 +155,5 @@ public class BarcodeInterface extends AppCompatActivity {
 //
 //        return Detection(mat);
 //    }
+
 }
